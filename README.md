@@ -1,5 +1,1 @@
-# Social Media
-
----
-
-hi there.
+# BlogProject
