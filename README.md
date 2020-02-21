@@ -6,7 +6,7 @@
 - Stumpo: Software Engineer
 - Nolan: Requirements Analyst (Front End)
 - Najae: Reporting Analyst
-- Laurence: Requirements Analyst(Back End)
+- Laurence: Requirements Analyst (Back End)
 - Shanda: Deployment
 
 ---
