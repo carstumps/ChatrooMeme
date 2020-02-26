@@ -1,6 +1,8 @@
 # Social Media Project
 
 
+### Team
+
 - Kelly: Project Manager
 - Najae: Reporting Analyst
 - Jack: Data Engineer
@@ -12,4 +14,5 @@
     - Stumpo: Software Engineer
 - Shanda: Deployment Engineer
 
+ 
 ---
