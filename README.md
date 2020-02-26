@@ -10,6 +10,6 @@
 - Back End
     - Laurence: Requirements Analyst
     - Stumpo: Software Engineer
-- Shanda: Deployment
+- Shanda: Deployment Engineer
 
 ---
