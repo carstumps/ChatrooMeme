@@ -1,5 +1,14 @@
-# Social Media Project
+# Social Media Project (Front End)
 
+### Ideas
+
+- [x] Setup for repository
+- [x] Push and Pull repository
+- [ ] Requirements
+- [ ] Design
+- [ ] Implement Back End
+
+---
 
 ### Team
 
