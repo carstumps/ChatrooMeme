@@ -18,10 +18,16 @@
     <p>
         {{ form.password.label }}<br>
         {{ form.password(size=32) }}
+        {% for error in form.password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
     </p>
     <p>
         {{ form.confirm.label }}<br>
         {{ form.confirm(size=32) }}
+        {% for error in form.confirm.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
     </p>
     <p>{{ form.submit() }}</p>
 </form>

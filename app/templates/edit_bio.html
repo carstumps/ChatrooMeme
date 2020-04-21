@@ -7,11 +7,9 @@
     <p>
         {{ form.bio.label }}<br>
         {{ form.bio(size=250) }}
-        {% for error in form.username.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
     </p>
     <p>{{ form.submit() }}</p>
 </form>
+<p><button onclick="window.location.href = '{{ url_for('profile') }}';">NEVER MIND!</button></p>
 
 {% endblock %}

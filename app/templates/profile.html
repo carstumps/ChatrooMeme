@@ -1,34 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>{{ current_user }}</h2>
-{% for user in users %}
-{% if user.username == current_user %}
+<h2>{{ title }}</h2>
 <p>
-    <h3>Bio:</h3><br>
-    {{ user.bio }}
+    {{ bio }}
 </p>
-{% endif %}
-{% endfor %}
+<div>
+    <a href="{{ url_for('edit_bio') }}">Edit bio</a>|
+    <a href="{{ url_for('change_password') }}">Change Password</a>
+</div>
 <hr>
 <h2>Create a post:</h2>
 <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
             {{ form.topic.label }}<br>
-            {{ form.topic(size=32) }}
+            {{ form.topic }}
+            {% for error in form.topic.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>
             {{ form.title.label }}<br>
             {{ form.title(size=32) }}
-            {% for error in form.password.errors %}
+            {% for error in form.title.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.text.label }}<br>
             {{ form.text(size=250) }}
-            {% for error in form.password.errors %}
+            {% for error in form.text.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
