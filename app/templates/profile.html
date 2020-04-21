@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>{{ title }}</h2>
+<h2>{{ user.username }}</h2>
 <p>
-    {{ bio }}
+    {{ user.bio }}
 </p>
 <div>
-    <a href="{{ url_for('edit_bio') }}">Edit bio</a>|
+    <a href="{{ url_for('edit_bio') }}">Edit bio</a> |
     <a href="{{ url_for('change_password') }}">Change Password</a>
 </div>
 <hr>
-<h2>Create a post:</h2>
+<h2>Create Post</h2>
 <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>

@@ -3,6 +3,18 @@ from app import app
 from app.forms import LoginForm, ChangePasswordForm, \
     NewProfileForm, CreatePostForm, EditBioForm
 
+users = [
+    {
+        'username': 'Joe Exotic',
+        'password': 'orangejuice',
+        'bio': 'It is really damp in here!'
+    },
+    {
+        'username': 'Justin Dabberson',
+        'password': 'leftiesRule',
+        'bio': 'I love the beach!'
+    }
+]
 
 posts = [
     {
@@ -41,7 +53,14 @@ posts = [
     }
 ]
 
-topics = ['Big Cats', 'Food']
+topics = '''Food
+Exercise
+Love
+Big Cats
+Cars
+Elvis
+Video Games
+Juices'''.split('\n')
 
 current_user = 'Joe Exotic'
 
@@ -51,7 +70,7 @@ current_user = 'Joe Exotic'
 def index():
     return render_template('index.html',
                            title='Topic',
-                           current_user='Joe Exotic',
+                           current_user=current_user,
                            topics=topics)
 
 
@@ -73,9 +92,17 @@ def profile():
     form = CreatePostForm()
     if form.validate_on_submit():
         redirect(url_for('profile'))
+    user = {
+        'username': '',
+        'password': '',
+        'bio': ''
+    }
+    for iter_user in users:
+        if iter_user['username'] is current_user:
+            user = iter_user
     return render_template('profile.html',
-                           title='Joe Exotic',
-                           bio='It is really damp in here!',
+                           title='Profile - {}'.format(current_user),
+                           user=user,
                            form=form)
 
 

@@ -6,22 +6,17 @@ from wtforms.validators import DataRequired, InputRequired, \
     EqualTo, Required
 
 
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Sign In')
+# The following component deals with creating a new post
 
-
-t = '''Food
-Excersise
+t = '''[Choose Topic]
+Food
+Exercise
 Love
 Big Cats
 Cars
 Elvis
 Video Games
-Juices
-'''.split('\n')
+Juices'''.split('\n')
 
 c = [(i + 1, t[i]) for i in range(len(t))]
 
@@ -32,6 +27,16 @@ class CreatePostForm(FlaskForm):
     text = TextAreaField('Post', validators=[DataRequired()])
     image = FileField('Add an image')
     submit = SubmitField('Submit')
+
+
+# The following components deal with profiles and their information
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')
+    submit = SubmitField('Sign In')
 
 
 class ChangePasswordForm(FlaskForm):

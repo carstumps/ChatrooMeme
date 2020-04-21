@@ -2,10 +2,11 @@
 {% extends "base.html" %}
 {% block content %}
     <h2>Topics</h2>
-    {% for topic in topics %}
+    {% for post in topic %}
     <div>
         <p>
-            {{ topic }}</b>
+            {{ post.title }}</b>
+            {{ post.username }}
         </p>
     </div>
     {% endfor %}
