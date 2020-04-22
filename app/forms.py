@@ -3,10 +3,10 @@ from wtforms import StringField, PasswordField, \
     BooleanField, SubmitField, TextAreaField, \
     FileField, SelectField
 from wtforms.validators import DataRequired, InputRequired, \
-    EqualTo, Required
+    EqualTo
 
 
-# The following component deals with creating a new post
+# The following component deals with creating a new post or comment
 
 t = '''[Choose Topic]
 Food
@@ -26,6 +26,11 @@ class CreatePostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     text = TextAreaField('Post', validators=[DataRequired()])
     image = FileField('Add an image')
+    submit = SubmitField('Submit')
+
+
+class CreateCommentForm(FlaskForm):
+    text = TextAreaField('Comment', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 

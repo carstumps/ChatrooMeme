@@ -1,7 +1,8 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app.forms import LoginForm, ChangePasswordForm, \
-    NewProfileForm, CreatePostForm, EditBioForm
+    NewProfileForm, CreatePostForm, EditBioForm, \
+    CreateCommentForm
 
 users = [
     {
@@ -36,7 +37,7 @@ posts = [
     },
     {
         'username': 'Joe Exotic',
-        'topic': 'Big Cats',
+        'topic': 'Food',
         'title': 'I love big cats!',
         'text': 'Big Cats are sooo great... I love them too much!',
         'image': '',
@@ -53,6 +54,24 @@ posts = [
     }
 ]
 
+data = {
+    'username': 'Justin Dabberson',
+    'topic': 'Food',
+    'title': 'I love Chicken',
+    'text': 'I love chicken, it is oh so yummy in my tummy.',
+    'image': '',
+    'comments': [
+        {
+            'username': 'Joe Exotic',
+            'text': 'Baby...'
+        },
+        {
+            'username': 'Joe Exotic',
+            'text': 'I eat tigers for breakfast!'
+        }
+    ]
+}
+
 topics = '''Food
 Exercise
 Love
@@ -64,14 +83,35 @@ Juices'''.split('\n')
 
 current_user = 'Joe Exotic'
 
+# The following components are part of the flow of the app
+
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html',
-                           title='Topic',
-                           current_user=current_user,
+                           title='Topics',
                            topics=topics)
+
+
+@app.route('/')
+@app.route('/topic', methods=['GET', 'POST'])
+def topic():
+    form = CreatePostForm()
+    return render_template('topic.html',
+                           title='Topic',
+                           posts=posts,
+                           form=form)
+
+
+@app.route('/')
+@app.route('/post', methods=['GET', 'POST'])
+def post():
+    form = CreateCommentForm()
+    return render_template('post.html',
+                           title='Post',
+                           data=data,
+                           form=form)
 
 
 # The following components deal with profiles and their information

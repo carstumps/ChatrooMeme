@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div>
+    <h2>{{ data.title }}</h2>
+    {{ data.username }}<br>
+    {{ data.text }}<br>
+</div>
+<div>
+    <h2>Leave a Comment</h2>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.text.label }}<br>
+            {{ form.text(size=250) }}
+            {% for error in form.text.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+<div>
+{% for comment in data.comments %}
+    <p style="">
+        <h3>{{ comment.username }}</h3>
+        {{ comment.text }}
+    </p>
+{% endfor %}
+</div>
+{% endblock %}
