@@ -23,8 +23,7 @@
 <div>
 {% for comment in data.comments %}
     <p style="">
-        <h3>{{ comment.username }}</h3>
-        {{ comment.text }}
+        {{ comment.username }}: {{ comment.text }}
     </p>
 {% endfor %}
 </div>
