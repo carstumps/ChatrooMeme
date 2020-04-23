@@ -1,6 +1,40 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, FileField, FieldList
-from wtforms.validators import DataRequired, InputRequired, EqualTo
+from wtforms import StringField, PasswordField, \
+    BooleanField, SubmitField, TextAreaField, \
+    FileField, SelectField
+from wtforms.validators import DataRequired, InputRequired, \
+    EqualTo
+
+
+# The following component deals with creating a new post or comment
+
+t = '''[Choose Topic]
+Food
+Exercise
+Love
+Big Cats
+Cars
+Elvis
+Video Games
+Juices'''.split('\n')
+
+c = [(i + 1, t[i]) for i in range(len(t))]
+
+
+class CreatePostForm(FlaskForm):
+    topic = SelectField('Choose a topic', validators=[DataRequired()], choices=c)
+    title = StringField('Title', validators=[DataRequired()])
+    text = TextAreaField('Post', validators=[DataRequired()])
+    image = FileField('Add an image')
+    submit = SubmitField('Submit')
+
+
+class CreateCommentForm(FlaskForm):
+    text = TextAreaField('Comment', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+# The following components deal with profiles and their information
 
 
 class LoginForm(FlaskForm):
@@ -10,16 +44,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 
-class CreatePostForm(FlaskForm):
-    topic = FieldList('Choose a topic')
-    title = StringField('Title', validators=[DataRequired()])
-    text = TextAreaField('Post', validators=[DataRequired()])
-    image = FileField('Add an image')
-    submit = SubmitField('Submit')
-
-
 class ChangePasswordForm(FlaskForm):
-    password = PasswordField('New Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
+    password = PasswordField('New Password', validators=[InputRequired(), EqualTo('confirm', message='Passwords must match')])
     confirm = PasswordField('Repeat Password')
     submit = SubmitField('Change')
 
@@ -32,6 +58,6 @@ class EditBioForm(FlaskForm):
 class NewProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     bio = TextAreaField("Add a bio (you can change this any time)")
-    password = PasswordField('Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
-    confirm = PasswordField('Confirm Password')
+    password = PasswordField('Password', validators=[InputRequired(), EqualTo('confirm', message='Passwords must match')])
+    confirm = PasswordField('Confirm Password', validators=[DataRequired()])
     submit = SubmitField('Submit')

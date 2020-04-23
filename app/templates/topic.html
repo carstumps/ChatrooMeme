@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Food</h2>
+<div>
+    <h2>Create Post</h2>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=32) }}
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.text.label }}<br>
+            {{ form.text(size=250) }}
+            {% for error in form.text.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.image.label }}<br>
+            {{ form.image() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+<h2>Posts</h2>
+{% for post in posts %}
+<div>
+    <p>
+        <h3>{{ post.title }}</h3>
+        {{ post.username }}
+    </p>
+</div>
+{% endfor %}
+{% endblock %}

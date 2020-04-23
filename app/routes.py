@@ -1,6 +1,8 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import LoginForm, ChangePasswordForm, NewProfileForm, CreatePostForm, EditBioForm
+from app.forms import LoginForm, ChangePasswordForm, \
+    NewProfileForm, CreatePostForm, EditBioForm, \
+    CreateCommentForm
 
 users = [
     {
@@ -35,7 +37,7 @@ posts = [
     },
     {
         'username': 'Joe Exotic',
-        'topic': 'Big Cats',
+        'topic': 'Food',
         'title': 'I love big cats!',
         'text': 'Big Cats are sooo great... I love them too much!',
         'image': '',
@@ -52,56 +54,103 @@ posts = [
     }
 ]
 
-topics = ['Big Cats', 'Food']
+data = {
+    'username': 'Justin Dabberson',
+    'topic': 'Food',
+    'title': 'I love Chicken',
+    'text': 'I love chicken, it is oh so yummy in my tummy.',
+    'image': '',
+    'comments': [
+        {
+            'username': 'Joe Exotic',
+            'text': 'Baby...'
+        },
+        {
+            'username': 'Joe Exotic',
+            'text': 'I eat tigers for breakfast!'
+        }
+    ]
+}
+
+topics = '''Food
+Exercise
+Love
+Big Cats
+Cars
+Elvis
+Video Games
+Juices'''.split('\n')
 
 current_user = 'Joe Exotic'
+
+# The following components are part of the flow of the app
 
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html',
-                           title='Topic',
+                           title='Topics',
                            topics=topics)
+
+
+@app.route('/')
+@app.route('/topic', methods=['GET', 'POST'])
+def topic():
+    form = CreatePostForm()
+    return render_template('topic.html',
+                           title='Topic',
+                           posts=posts,
+                           form=form)
+
+
+@app.route('/')
+@app.route('/post', methods=['GET', 'POST'])
+def post():
+    form = CreateCommentForm()
+    return render_template('post.html',
+                           title='Post',
+                           data=data,
+                           form=form)
+
+
+# The following components deal with profiles and their information
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login requested for user {}, remember_me = {}'.format(form.username.data, form.remember_me.data))
+        return redirect(url_for('index'))
+    return render_template('login.html',
+                           title='Sign In',
+                           form=form)
 
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     form = CreatePostForm()
     if form.validate_on_submit():
-        '''
-        posts.append({
-            'username': current_user,
-            'topic': form.topic.data,
-            'title': form.title.data,
-            'text': form.text.data,
-            'image': form.image.data,
-            'comments': []
-        })
-        '''
         redirect(url_for('profile'))
+    user = {
+        'username': '',
+        'password': '',
+        'bio': ''
+    }
+    for iter_user in users:
+        if iter_user['username'] is current_user:
+            user = iter_user
     return render_template('profile.html',
-                           title=current_user,
-                           current_user=current_user,
+                           title='Profile - {}'.format(current_user),
+                           user=user,
                            form=form)
 
 
 @app.route('/new_profile', methods=['GET', 'POST'])
 def new_profile():
-    # complete
     form = NewProfileForm()
     if form.validate_on_submit():
-        '''
-        for user in users:
-            if form.username == user['username']:
-                return redirect(url_for('new_profile'))
-        users.append({
-            'username': form.username.data,
-            'password': form.password.data,
-            'bio': form.bio.data
-        })
-        '''
-        return redirect(url_for('profile'))
+        return redirect(url_for('index'))
     return render_template('new_profile.html',
                            title='New Profile',
                            form=form)
@@ -109,14 +158,8 @@ def new_profile():
 
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
-    # complete
     form = ChangePasswordForm()
     if form.validate_on_submit():
-        '''
-        for user in users:
-            if user['username'] == current_user:
-                user['password'] = form.password.data
-                '''
         return redirect(url_for('profile'))
     return render_template('change_password.html',
                            title='Change Password',
@@ -125,27 +168,9 @@ def change_password():
 
 @app.route('/edit_bio', methods=['GET', 'POST'])
 def edit_bio():
-    # complete
     form = EditBioForm()
     if form.validate_on_submit():
-        '''
-        for user in users:
-            if user['username'] == current_user:
-                user['password'] = form.bio.data
-        '''
         return redirect(url_for('profile'))
-    return render_template('change_password.html',
+    return render_template('edit_bio.html',
                            title='Change Password',
-                           form=form)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    # complete
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me = {}'.format(form.username.data, form.remember_me.data))
-        return redirect(url_for('profile'))
-    return render_template('login.html',
-                           title='Sign In',
                            form=form)

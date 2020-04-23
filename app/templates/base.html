@@ -13,9 +13,10 @@
     <div id="top">
         <h1>Social Media Project</h1>
         <div>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('new_profile') }}">Create Profile</a>
+            <a href="{{ url_for('index') }}">Home</a> |
+            <a href="{{ url_for('login') }}">Login</a> |
+            <a href="{{ url_for('new_profile') }}">Create Profile</a> |
+            <a href="{{ url_for('profile') }}">Profile</a>
         </div>
     </div>
     <hr>
@@ -29,5 +30,8 @@
     {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
+    <hr>
+    <a href="{{ url_for('topic') }}">topic page example</a> |
+    <a href="{{ url_for('post') }}">post page login</a>
 </body>
 </html>
