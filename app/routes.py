@@ -12,6 +12,7 @@ from flask_login import login_required
 from app import db
 from app.forms import RegistrationForm
 
+'''
 users = [
     {
         'username': 'Joe Exotic',
@@ -24,7 +25,7 @@ users = [
         'bio': 'I love the beach!'
     }
 ]
-
+'''
 posts = [
     {
         'username': 'Justin Dabberson',
@@ -79,6 +80,7 @@ data = {
         }
     ]
 }
+
 
 topics = '''Food
 Exercise
@@ -155,13 +157,13 @@ def profile():
         'password': '',
         'bio': ''
     }
-    for iter_user in users:
-        if iter_user['username'] is current_user:
-            user = iter_user
-    return render_template('profile.html',
-                           title='Profile - {}'.format(current_user),
-                           user=user,
-                           form=form)
+    #for iter_user in users:
+    #    if iter_user['username'] is current_user:
+    #        user = iter_user
+    #return render_template('profile.html',
+    #                       title='Profile - {}'.format(current_user),
+    #                       user=user,
+    #                       form=form)
 
 
 @app.route('/new_profile', methods=['GET', 'POST'])
