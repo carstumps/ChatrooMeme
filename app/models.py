@@ -1,6 +1,8 @@
 from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from app import login
+from flask_login import UserMixin
 
 @login.user_loader
 def load_user(id):
