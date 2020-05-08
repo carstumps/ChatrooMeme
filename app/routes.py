@@ -12,7 +12,7 @@ from flask_login import login_required
 from app import db
 from app.forms import RegistrationForm
 
-'''
+
 users = [
     {
         'username': 'Joe Exotic',
@@ -25,7 +25,7 @@ users = [
         'bio': 'I love the beach!'
     }
 ]
-'''
+
 posts = [
     {
         'username': 'Justin Dabberson',
@@ -102,7 +102,7 @@ Juices'''.split('\n')
 def index():
     return render_template('index.html',
                            title='Topics',
-                           posts=posts)
+                           topics=topics)
 
 
 @app.route('/')
@@ -137,7 +137,7 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
-        #login_user(user, remember=form.remember_me.data)
+        login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
@@ -157,13 +157,13 @@ def profile():
         'password': '',
         'bio': ''
     }
-    #for iter_user in users:
-    #    if iter_user['username'] is current_user:
-    #        user = iter_user
-    #return render_template('profile.html',
-    #                       title='Profile - {}'.format(current_user),
-    #                       user=user,
-    #                       form=form)
+    for iter_user in users:
+        if iter_user['username'] is current_user:
+            user = iter_user
+    return render_template('profile.html',
+                           title='Profile - {}'.format(current_user),
+                           user=user,
+                           form=form)
 
 
 @app.route('/new_profile', methods=['GET', 'POST'])
